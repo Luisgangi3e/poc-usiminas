@@ -1,0 +1,57 @@
+import { Machine } from '@/types/machine';
+
+export const machineStatusData: Machine[] = [
+  {
+    id: 'laminador-principal',
+    name: 'Laminador Principal',
+    type: 'Laminador',
+    status: 'running',
+    lastUpdate: new Date().toISOString(),
+    operator: 'Carlos Silva',
+    production: 1420,
+  },
+  {
+    id: 'desbobinador-1',
+    name: 'Desbobinador 1',
+    type: 'Desbobinador',
+    status: 'running',
+    lastUpdate: new Date().toISOString(),
+    operator: 'Ana Souza',
+    production: 980,
+  },
+  {
+    id: 'desbobinador-2',
+    name: 'Desbobinador 2',
+    type: 'Desbobinador',
+    status: 'fault',
+    lastUpdate: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
+    operator: 'João Santos',
+    production: 0,
+  },
+  {
+    id: 'rebobinador',
+    name: 'Rebobinador',
+    type: 'Rebobinador',
+    status: 'running',
+    lastUpdate: new Date().toISOString(),
+    operator: 'Maria Lima',
+    production: 1380,
+  },
+  {
+    id: 'forno-recozimento',
+    name: 'Forno de Recozimento',
+    type: 'Forno',
+    status: 'maintenance',
+    lastUpdate: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    operator: 'Pedro Alves',
+    production: 0,
+  },
+  {
+    id: 'sistema-hidraulico',
+    name: 'Sistema Hidráulico',
+    type: 'Sistema',
+    status: 'stopped',
+    lastUpdate: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+    production: 0,
+  },
+];
