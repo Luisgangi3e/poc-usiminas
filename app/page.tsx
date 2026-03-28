@@ -3,9 +3,14 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import MachineStatusCard from '@/components/dashboard/MachineStatusCard';
+import EquipmentVisual from '@/components/dashboard/EquipmentVisual';
 import KpiCard from '@/components/dashboard/KpiCard';
-import MachineStatusTable from '@/components/dashboard/MachineStatusTable';
+import RealTimeLogs from '@/components/dashboard/RealTimeLogs';
 import AlertsPanel from '@/components/dashboard/AlertsPanel';
+import VariablesMonitor from '@/components/dashboard/VariablesMonitor';
+import ShiftTimeline from '@/components/dashboard/ShiftTimeline';
 import { useKpiData } from '@/hooks/useKpiData';
 import { useMachineStatus } from '@/hooks/useMachineStatus';
 import { useAlerts } from '@/hooks/useAlerts';
@@ -15,9 +20,13 @@ export default function DashboardPage() {
   const { data: machines, loading: machineLoading } = useMachineStatus();
   const { data: alerts, loading: alertLoading, acknowledgeAlert } = useAlerts();
 
+  const mainMachine = machines.length > 0 ? machines[0] : undefined;
+  const isRunning = mainMachine?.status === 'running';
+
   return (
     <Box>
-      <Box sx={{ mb: 3 }}>
+      {/* Page Title */}
+      <Box sx={{ mb: 2 }}>
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
           Visão Geral
         </Typography>
@@ -26,8 +35,21 @@ export default function DashboardPage() {
         </Typography>
       </Box>
 
-      {/* KPI Row */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
+      {/* Dashboard Header Strip: line status, connection, shift, operator, last update */}
+      <DashboardHeader />
+
+      {/* Row 1: Machine Status Card + Equipment Visual */}
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={12} md={5}>
+          <MachineStatusCard machine={mainMachine} />
+        </Grid>
+        <Grid item xs={12} md={7}>
+          <EquipmentVisual isRunning={!machineLoading && isRunning} />
+        </Grid>
+      </Grid>
+
+      {/* Row 2: KPI Grid */}
+      <Grid container spacing={2} sx={{ mb: 2 }}>
         {kpiLoading
           ? Array.from({ length: 4 }).map((_, i) => (
               <Grid item xs={12} sm={6} md={3} key={i}>
@@ -41,10 +63,10 @@ export default function DashboardPage() {
             ))}
       </Grid>
 
-      {/* Second Row: Machine Table + Alerts */}
-      <Grid container spacing={2}>
+      {/* Row 3: Real-time Logs + Active Alerts */}
+      <Grid container spacing={2} sx={{ mb: 2 }}>
         <Grid item xs={12} md={7}>
-          <MachineStatusTable machines={machines} loading={machineLoading} />
+          <RealTimeLogs />
         </Grid>
         <Grid item xs={12} md={5}>
           <AlertsPanel
@@ -52,6 +74,16 @@ export default function DashboardPage() {
             loading={alertLoading}
             onAcknowledge={acknowledgeAlert}
           />
+        </Grid>
+      </Grid>
+
+      {/* Row 4: Variables Monitor + Shift Timeline */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <VariablesMonitor />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <ShiftTimeline />
         </Grid>
       </Grid>
     </Box>
