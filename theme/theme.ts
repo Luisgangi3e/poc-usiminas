@@ -116,6 +116,7 @@ const theme = createTheme({
           transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
           '&:hover': {
             borderColor: 'rgba(255, 255, 255, 0.12)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(41, 121, 255, 0.08)',
           },
         },
       },
