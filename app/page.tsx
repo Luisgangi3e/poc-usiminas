@@ -105,7 +105,7 @@ export default function DashboardPage() {
       </Grid>
 
       {/* Section: Monitoring */}
-      <SectionLabel>Monitoramento &amp; Alertas</SectionLabel>
+      <SectionLabel>{'Monitoramento & Alertas'}</SectionLabel>
 
       {/* Row 4: Real-time Logs + Active Alerts */}
       <Grid container spacing={2.5} sx={{ mb: 2.5 }}>
@@ -122,7 +122,7 @@ export default function DashboardPage() {
       </Grid>
 
       {/* Section: Variables & Shift */}
-      <SectionLabel>Variáveis de Processo &amp; Turno</SectionLabel>
+      <SectionLabel>{'Variáveis de Processo & Turno'}</SectionLabel>
 
       {/* Row 5: Variables Monitor + Shift Timeline */}
       <Grid container spacing={2.5} sx={{ mb: 2.5 }}>

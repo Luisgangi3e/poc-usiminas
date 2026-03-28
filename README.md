@@ -136,11 +136,11 @@ npm install @microsoft/signalr
 
 ```typescript
 // hooks/useSignalR.ts
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { useEffect, useRef, useState } from 'react';
 
 export function useSignalR(hubUrl: string) {
-  const connectionRef = useRef<signalR.HubConnection | null>(null);
+  const connectionRef = useRef<HubConnection | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
