@@ -15,7 +15,21 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<PrecisionManufacturingIcon sx={{ color: 'primary.main' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(41, 121, 255, 0.15), rgba(41, 121, 255, 0.05))',
+            }}
+          >
+            <PrecisionManufacturingIcon sx={{ color: 'primary.main', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Laminador a Frio
@@ -33,9 +47,9 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
             position: 'relative',
             width: '100%',
             height: 200,
-            backgroundColor: 'rgba(10, 14, 26, 0.6)',
-            borderRadius: 2,
-            border: '1px solid rgba(255,255,255,0.06)',
+            backgroundColor: 'rgba(6, 11, 24, 0.7)',
+            borderRadius: '12px',
+            border: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
@@ -50,7 +64,8 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
               left: '5%',
               width: '90%',
               height: 2,
-              backgroundColor: 'rgba(255,255,255,0.15)',
+              backgroundColor: 'rgba(255,255,255,0.1)',
+              borderRadius: 1,
             }}
           />
 
@@ -63,8 +78,9 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
               width: 60,
               height: 60,
               borderRadius: '50%',
-              border: '3px solid #1E88E5',
-              backgroundColor: 'rgba(30, 136, 229, 0.1)',
+              border: '3px solid #448AFF',
+              backgroundColor: 'rgba(68, 138, 255, 0.08)',
+              boxShadow: isRunning ? '0 0 16px rgba(68, 138, 255, 0.2)' : 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -82,8 +98,8 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                 width: 20,
                 height: 20,
                 borderRadius: '50%',
-                backgroundColor: '#1E88E5',
-                opacity: 0.6,
+                backgroundColor: '#448AFF',
+                opacity: 0.5,
               }}
             />
           </Box>
@@ -102,7 +118,7 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
               bottom: 58,
               width: 'calc(84% - 120px)',
               height: 3,
-              backgroundColor: '#90A4AE',
+              backgroundColor: '#607D8B',
               borderRadius: 1,
               ...(isRunning && {
                 '&::after': {
@@ -112,7 +128,7 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                   left: 0,
                   width: '30%',
                   height: '100%',
-                  backgroundColor: 'rgba(255,255,255,0.4)',
+                  backgroundColor: 'rgba(255,255,255,0.35)',
                   borderRadius: 1,
                   animation: 'stripFlow 1.5s linear infinite',
                   '@keyframes stripFlow': {
@@ -144,8 +160,9 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                   width: 36,
                   height: 36,
                   borderRadius: '50%',
-                  border: '2px solid #FF6F00',
-                  backgroundColor: 'rgba(255, 111, 0, 0.08)',
+                  border: '2px solid #FF6D00',
+                  backgroundColor: 'rgba(255, 109, 0, 0.06)',
+                  boxShadow: isRunning ? '0 0 10px rgba(255, 109, 0, 0.15)' : 'none',
                   ...(isRunning && {
                     animation: `rollerSpin ${1.5 + i * 0.3}s linear infinite reverse`,
                     '@keyframes rollerSpin': {
@@ -161,8 +178,9 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                   width: 36,
                   height: 36,
                   borderRadius: '50%',
-                  border: '2px solid #FF6F00',
-                  backgroundColor: 'rgba(255, 111, 0, 0.08)',
+                  border: '2px solid #FF6D00',
+                  backgroundColor: 'rgba(255, 109, 0, 0.06)',
+                  boxShadow: isRunning ? '0 0 10px rgba(255, 109, 0, 0.15)' : 'none',
                   ...(isRunning && {
                     animation: `rollerSpin2 ${1.5 + i * 0.3}s linear infinite`,
                     '@keyframes rollerSpin2': {
@@ -190,8 +208,9 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
               width: 50,
               height: 50,
               borderRadius: '50%',
-              border: '3px solid #4CAF50',
-              backgroundColor: 'rgba(76, 175, 80, 0.1)',
+              border: '3px solid #00E676',
+              backgroundColor: 'rgba(0, 230, 118, 0.06)',
+              boxShadow: isRunning ? '0 0 16px rgba(0, 230, 118, 0.2)' : 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -205,8 +224,8 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                 width: 16,
                 height: 16,
                 borderRadius: '50%',
-                backgroundColor: '#4CAF50',
-                opacity: 0.6,
+                backgroundColor: '#00E676',
+                opacity: 0.5,
               }}
             />
           </Box>
@@ -234,7 +253,7 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                 sx={{
                   width: 60,
                   height: 2,
-                  backgroundColor: 'rgba(76, 175, 80, 0.5)',
+                  backgroundColor: 'rgba(0, 230, 118, 0.5)',
                   position: 'relative',
                   '&::after': {
                     content: '""',
@@ -242,11 +261,11 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
                     right: -6,
                     top: -4,
                     border: '5px solid transparent',
-                    borderLeft: '6px solid rgba(76, 175, 80, 0.5)',
+                    borderLeft: '6px solid rgba(0, 230, 118, 0.5)',
                   },
                 }}
               />
-              <Typography variant="caption" sx={{ color: '#4CAF50', fontWeight: 600, fontSize: '0.65rem' }}>
+              <Typography variant="caption" sx={{ color: '#00E676', fontWeight: 700, fontSize: '0.7rem' }}>
                 187,4 m/min
               </Typography>
             </Box>

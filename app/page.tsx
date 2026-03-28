@@ -29,11 +29,11 @@ export default function DashboardPage() {
   return (
     <Box>
       {/* Page Title */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" sx={{ fontWeight: 700 }}>
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: '-0.01em' }}>
           Visão Geral
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
           Monitoramento em tempo real do Laminador a Frio
         </Typography>
       </Box>
@@ -42,7 +42,7 @@ export default function DashboardPage() {
       <DashboardHeader />
 
       {/* Row 1: Machine Status Card + Equipment Visual */}
-      <Grid container spacing={2} sx={{ mb: 2 }}>
+      <Grid container spacing={2.5} sx={{ mb: 2.5 }}>
         <Grid item xs={12} md={5}>
           <MachineStatusCard machine={mainMachine} />
         </Grid>
@@ -52,7 +52,7 @@ export default function DashboardPage() {
       </Grid>
 
       {/* Row 2: KPI Grid */}
-      <Grid container spacing={2} sx={{ mb: 2 }}>
+      <Grid container spacing={2.5} sx={{ mb: 2.5 }}>
         {kpiLoading
           ? Array.from({ length: 4 }).map((_, i) => (
               <Grid item xs={12} sm={6} md={3} key={i}>
@@ -67,14 +67,14 @@ export default function DashboardPage() {
       </Grid>
 
       {/* Row 3: Process Flow Card */}
-      <Grid container spacing={2} sx={{ mb: 2 }}>
+      <Grid container spacing={2.5} sx={{ mb: 2.5 }}>
         <Grid item xs={12}>
           <ProcessFlowCard steps={processSteps} loading={processLoading} />
         </Grid>
       </Grid>
 
       {/* Row 4: Real-time Logs + Active Alerts */}
-      <Grid container spacing={2} sx={{ mb: 2 }}>
+      <Grid container spacing={2.5} sx={{ mb: 2.5 }}>
         <Grid item xs={12} md={7}>
           <RealTimeLogs />
         </Grid>
@@ -88,7 +88,7 @@ export default function DashboardPage() {
       </Grid>
 
       {/* Row 5: Variables Monitor + Shift Timeline */}
-      <Grid container spacing={2}>
+      <Grid container spacing={2.5}>
         <Grid item xs={12} md={6}>
           <VariablesMonitor />
         </Grid>

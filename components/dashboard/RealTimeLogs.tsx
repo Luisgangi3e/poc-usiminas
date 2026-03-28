@@ -15,15 +15,15 @@ const MAX_LOGS = 50;
 function getLogColor(level: LogEntry['level']): string {
   switch (level) {
     case 'info':
-      return '#42A5F5';
+      return '#40C4FF';
     case 'success':
-      return '#4CAF50';
+      return '#00E676';
     case 'warning':
-      return '#FF9800';
+      return '#FFAB00';
     case 'error':
-      return '#F44336';
+      return '#FF1744';
     default:
-      return '#90A4AE';
+      return '#8494A7';
   }
 }
 
@@ -66,7 +66,21 @@ export default function RealTimeLogs() {
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<TerminalIcon sx={{ color: '#4CAF50' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(0, 230, 118, 0.15), rgba(0, 230, 118, 0.05))',
+            }}
+          >
+            <TerminalIcon sx={{ color: '#00E676', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Logs em Tempo Real
@@ -87,16 +101,16 @@ export default function RealTimeLogs() {
           '&::-webkit-scrollbar': { width: 6 },
           '&::-webkit-scrollbar-track': { background: 'transparent' },
           '&::-webkit-scrollbar-thumb': {
-            background: 'rgba(255,255,255,0.1)',
+            background: 'rgba(255,255,255,0.08)',
             borderRadius: 3,
           },
         }}
       >
         <Box
           sx={{
-            backgroundColor: 'rgba(10, 14, 26, 0.8)',
-            borderRadius: 1,
-            border: '1px solid rgba(255,255,255,0.06)',
+            backgroundColor: 'rgba(6, 11, 24, 0.8)',
+            borderRadius: '10px',
+            border: '1px solid rgba(255,255,255,0.05)',
             p: 1.5,
             fontFamily: '"JetBrains Mono", "Fira Code", "Consolas", monospace',
           }}
@@ -110,14 +124,14 @@ export default function RealTimeLogs() {
                   display: 'flex',
                   gap: 1,
                   py: 0.5,
-                  borderBottom: '1px solid rgba(255,255,255,0.03)',
+                  borderBottom: '1px solid rgba(255,255,255,0.025)',
                   '&:last-child': { borderBottom: 'none' },
                   alignItems: 'flex-start',
                 }}
               >
                 <Typography
                   variant="caption"
-                  sx={{ color: 'text.disabled', fontSize: '0.7rem', whiteSpace: 'nowrap', minWidth: 60, mt: '1px' }}
+                  sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem', whiteSpace: 'nowrap', minWidth: 60, mt: '1px' }}
                 >
                   {formatTimestamp(log.timestamp)}
                 </Typography>
@@ -129,8 +143,8 @@ export default function RealTimeLogs() {
                     fontSize: '0.7rem',
                     minWidth: 38,
                     textAlign: 'center',
-                    backgroundColor: `${color}1A`,
-                    borderRadius: 0.5,
+                    backgroundColor: `${color}15`,
+                    borderRadius: '4px',
                     px: 0.5,
                     mt: '1px',
                   }}

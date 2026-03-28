@@ -52,7 +52,21 @@ export default function AlertsPanel({ alerts, loading = false, onAcknowledge }: 
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<NotificationsActiveIcon sx={{ color: 'secondary.main' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(255, 109, 0, 0.05))',
+            }}
+          >
+            <NotificationsActiveIcon sx={{ color: 'secondary.main', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Alertas Ativos
@@ -93,8 +107,12 @@ export default function AlertsPanel({ alerts, loading = false, onAcknowledge }: 
                         ml: 0.5,
                         pl: 1.5,
                         mb: 0.5,
-                        borderRadius: '0 4px 4px 0',
-                        backgroundColor: `${color}0D`,
+                        borderRadius: '0 8px 8px 0',
+                        backgroundColor: `${color}0A`,
+                        transition: 'background-color 0.2s',
+                        '&:hover': {
+                          backgroundColor: `${color}14`,
+                        },
                       }}
                     >
                       <ListItemIcon sx={{ minWidth: 36, mt: 0.5 }}>
@@ -117,7 +135,7 @@ export default function AlertsPanel({ alerts, loading = false, onAcknowledge }: 
                             <Typography
                               variant="caption"
                               component="span"
-                              sx={{ color, fontWeight: 600, textTransform: 'uppercase' }}
+                              sx={{ color, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}
                             >
                               {getAlertSeverityLabel(alert.severity)}
                             </Typography>
@@ -132,9 +150,10 @@ export default function AlertsPanel({ alerts, loading = false, onAcknowledge }: 
                           sx={{
                             mt: 0.5,
                             fontSize: '0.7rem',
-                            borderColor: 'rgba(255,255,255,0.2)',
+                            borderColor: 'rgba(255,255,255,0.15)',
                             color: 'text.secondary',
                             whiteSpace: 'nowrap',
+                            borderRadius: '8px',
                             '&:hover': { borderColor: color, color },
                           }}
                         >
@@ -143,7 +162,7 @@ export default function AlertsPanel({ alerts, loading = false, onAcknowledge }: 
                       )}
                     </ListItem>
                     {index < activeAlerts.length - 1 && (
-                      <Divider sx={{ my: 0.5, borderColor: 'rgba(255,255,255,0.04)' }} />
+                      <Divider sx={{ my: 0.5, borderColor: 'rgba(255,255,255,0.03)' }} />
                     )}
                   </Box>
                 );
@@ -152,15 +171,15 @@ export default function AlertsPanel({ alerts, loading = false, onAcknowledge }: 
 
             {acknowledgedAlerts.length > 0 && (
               <>
-                <Divider sx={{ my: 1.5, borderColor: 'rgba(255,255,255,0.08)' }} />
-                <Typography variant="caption" color="text.disabled" sx={{ px: 1 }}>
+                <Divider sx={{ my: 1.5, borderColor: 'rgba(255,255,255,0.06)' }} />
+                <Typography variant="caption" sx={{ px: 1, color: 'rgba(255,255,255,0.25)', fontWeight: 600 }}>
                   Reconhecidos
                 </Typography>
                 <List dense>
                   {acknowledgedAlerts.map((alert) => (
-                    <ListItem key={alert.id} sx={{ opacity: 0.5 }}>
+                    <ListItem key={alert.id} sx={{ opacity: 0.4 }}>
                       <ListItemIcon sx={{ minWidth: 36 }}>
-                        <CheckCircleOutlineIcon sx={{ fontSize: 20, color: '#4CAF50' }} />
+                        <CheckCircleOutlineIcon sx={{ fontSize: 20, color: '#00E676' }} />
                       </ListItemIcon>
                       <ListItemText
                         primary={

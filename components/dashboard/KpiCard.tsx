@@ -19,9 +19,9 @@ interface KpiCardProps {
 
 function TrendIcon({ trend }: { trend?: 'up' | 'down' | 'stable' }) {
   if (!trend) return null;
-  if (trend === 'up') return <TrendingUpIcon sx={{ fontSize: 20, color: '#4CAF50' }} />;
-  if (trend === 'down') return <TrendingDownIcon sx={{ fontSize: 20, color: '#F44336' }} />;
-  return <TrendingFlatIcon sx={{ fontSize: 20, color: '#90A4AE' }} />;
+  if (trend === 'up') return <TrendingUpIcon sx={{ fontSize: 20, color: '#00E676' }} />;
+  if (trend === 'down') return <TrendingDownIcon sx={{ fontSize: 20, color: '#FF1744' }} />;
+  return <TrendingFlatIcon sx={{ fontSize: 20, color: '#8494A7' }} />;
 }
 
 export default function KpiCard({ data, loading = false }: KpiCardProps) {
@@ -44,39 +44,45 @@ export default function KpiCard({ data, loading = false }: KpiCardProps) {
       sx={{
         borderTop: `3px solid ${statusColor}`,
         height: '100%',
-        transition: 'transform 0.2s, box-shadow 0.2s',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
         '&:hover': {
-          transform: 'translateY(-2px)',
-          boxShadow: `0 8px 24px rgba(0,0,0,0.3)`,
+          transform: 'translateY(-4px)',
+          boxShadow: `0 12px 32px rgba(0,0,0,0.4), 0 0 20px ${statusColor}15`,
         },
       }}
     >
-      <CardContent>
+      <CardContent sx={{ p: 2.5 }}>
         <Typography
           variant="caption"
           color="text.secondary"
-          sx={{ textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}
+          sx={{ textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontSize: '0.68rem' }}
         >
           {data.label}
         </Typography>
 
-        <Box sx={{ display: 'flex', alignItems: 'baseline', mt: 1, gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'baseline', mt: 1.5, gap: 1 }}>
           <Typography
             variant="h4"
             component="div"
-            sx={{ fontWeight: 700, color: statusColor, lineHeight: 1 }}
+            sx={{
+              fontWeight: 800,
+              color: statusColor,
+              lineHeight: 1,
+              letterSpacing: '-0.02em',
+              textShadow: `0 0 24px ${statusColor}30`,
+            }}
           >
             {formatNumber(data.value, data.unit === 'mm' ? 2 : 1)}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
             {data.unit}
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1.5, gap: 0.5 }}>
           <TrendIcon trend={data.trend} />
           {data.target && (
-            <Typography variant="caption" color="text.disabled">
+            <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.72rem' }}>
               Meta: {data.target} {data.unit}
             </Typography>
           )}

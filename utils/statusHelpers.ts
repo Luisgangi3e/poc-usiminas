@@ -6,45 +6,45 @@ import { ProcessStepStatus } from '@/types/process';
 export function getKpiStatusColor(status: KpiStatus): string {
   switch (status) {
     case 'normal':
-      return '#4CAF50';
+      return '#00E676';
     case 'warning':
-      return '#FF9800';
+      return '#FFAB00';
     case 'critical':
-      return '#F44336';
+      return '#FF1744';
     case 'offline':
-      return '#9E9E9E';
+      return '#78909C';
     default:
-      return '#9E9E9E';
+      return '#78909C';
   }
 }
 
 export function getMachineStatusColor(status: MachineStatus): string {
   switch (status) {
     case 'running':
-      return '#4CAF50';
+      return '#00E676';
     case 'stopped':
-      return '#9E9E9E';
+      return '#78909C';
     case 'maintenance':
-      return '#FF9800';
+      return '#FFAB00';
     case 'fault':
-      return '#F44336';
+      return '#FF1744';
     default:
-      return '#9E9E9E';
+      return '#78909C';
   }
 }
 
 export function getAlertSeverityColor(severity: AlertSeverity): string {
   switch (severity) {
     case 'critical':
-      return '#F44336';
+      return '#FF1744';
     case 'high':
-      return '#FF5722';
+      return '#FF3D00';
     case 'medium':
-      return '#FF9800';
+      return '#FFAB00';
     case 'low':
-      return '#FFC107';
+      return '#FFD600';
     default:
-      return '#9E9E9E';
+      return '#78909C';
   }
 }
 
@@ -81,15 +81,15 @@ export function getAlertSeverityLabel(severity: AlertSeverity): string {
 export function getProcessStepStatusColor(status: ProcessStepStatus): string {
   switch (status) {
     case 'active':
-      return '#4CAF50';
+      return '#00E676';
     case 'idle':
-      return '#9E9E9E';
+      return '#78909C';
     case 'warning':
-      return '#FF9800';
+      return '#FFAB00';
     case 'fault':
-      return '#F44336';
+      return '#FF1744';
     default:
-      return '#9E9E9E';
+      return '#78909C';
   }
 }
 

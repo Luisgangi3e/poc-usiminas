@@ -34,24 +34,37 @@ export default function MachineStatusCard({ machine }: MachineStatusCardProps) {
           position: 'absolute',
           top: 0,
           right: 0,
-          width: '40%',
+          width: '50%',
           height: '100%',
-          background: `radial-gradient(ellipse at top right, ${statusColor}12 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse at top right, ${statusColor}10 0%, transparent 70%)`,
           pointerEvents: 'none',
         },
       }}
     >
       <CardContent sx={{ p: 3 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2.5 }}>
           <Box>
-            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
+            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontSize: '0.68rem' }}>
               Equipamento Principal
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 700, mt: 0.5 }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, mt: 0.5, letterSpacing: '-0.01em' }}>
               {machine.name}
             </Typography>
           </Box>
-          <SpeedIcon sx={{ fontSize: 40, color: statusColor, opacity: 0.6 }} />
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 48,
+              height: 48,
+              borderRadius: '14px',
+              background: `linear-gradient(135deg, ${statusColor}18, ${statusColor}08)`,
+              border: `1px solid ${statusColor}25`,
+            }}
+          >
+            <SpeedIcon sx={{ fontSize: 28, color: statusColor, opacity: 0.8 }} />
+          </Box>
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
@@ -73,9 +86,9 @@ export default function MachineStatusCard({ machine }: MachineStatusCardProps) {
             }
             label={statusLabel}
             sx={{
-              backgroundColor: `${statusColor}1A`,
+              backgroundColor: `${statusColor}14`,
               color: statusColor,
-              border: `1px solid ${statusColor}44`,
+              border: `1px solid ${statusColor}30`,
               fontWeight: 700,
               fontSize: '0.875rem',
               height: 36,
@@ -85,7 +98,7 @@ export default function MachineStatusCard({ machine }: MachineStatusCardProps) {
 
         <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
           <Box>
-            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
               Produção
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700, color: statusColor }}>
@@ -93,7 +106,7 @@ export default function MachineStatusCard({ machine }: MachineStatusCardProps) {
             </Typography>
           </Box>
           <Box>
-            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
               Operador
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
@@ -101,7 +114,7 @@ export default function MachineStatusCard({ machine }: MachineStatusCardProps) {
             </Typography>
           </Box>
           <Box>
-            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
               Última Atualização
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
