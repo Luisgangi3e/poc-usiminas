@@ -1,6 +1,7 @@
 import { KpiStatus } from '@/types/kpi';
 import { MachineStatus } from '@/types/machine';
 import { AlertSeverity } from '@/types/alert';
+import { ProcessStepStatus } from '@/types/process';
 
 export function getKpiStatusColor(status: KpiStatus): string {
   switch (status) {
@@ -72,6 +73,36 @@ export function getAlertSeverityLabel(severity: AlertSeverity): string {
       return 'Médio';
     case 'low':
       return 'Baixo';
+    default:
+      return 'Desconhecido';
+  }
+}
+
+export function getProcessStepStatusColor(status: ProcessStepStatus): string {
+  switch (status) {
+    case 'active':
+      return '#4CAF50';
+    case 'idle':
+      return '#9E9E9E';
+    case 'warning':
+      return '#FF9800';
+    case 'fault':
+      return '#F44336';
+    default:
+      return '#9E9E9E';
+  }
+}
+
+export function getProcessStepStatusLabel(status: ProcessStepStatus): string {
+  switch (status) {
+    case 'active':
+      return 'Ativo';
+    case 'idle':
+      return 'Ocioso';
+    case 'warning':
+      return 'Atenção';
+    case 'fault':
+      return 'Falha';
     default:
       return 'Desconhecido';
   }

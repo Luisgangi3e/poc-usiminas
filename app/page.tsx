@@ -11,14 +11,17 @@ import RealTimeLogs from '@/components/dashboard/RealTimeLogs';
 import AlertsPanel from '@/components/dashboard/AlertsPanel';
 import VariablesMonitor from '@/components/dashboard/VariablesMonitor';
 import ShiftTimeline from '@/components/dashboard/ShiftTimeline';
+import ProcessFlowCard from '@/components/dashboard/ProcessFlowCard';
 import { useKpiData } from '@/hooks/useKpiData';
 import { useMachineStatus } from '@/hooks/useMachineStatus';
 import { useAlerts } from '@/hooks/useAlerts';
+import { useProcessFlow } from '@/hooks/useProcessFlow';
 
 export default function DashboardPage() {
   const { data: kpis, loading: kpiLoading } = useKpiData();
   const { data: machines, loading: machineLoading } = useMachineStatus();
   const { data: alerts, loading: alertLoading, acknowledgeAlert } = useAlerts();
+  const { data: processSteps, loading: processLoading } = useProcessFlow();
 
   const mainMachine = machines.length > 0 ? machines[0] : undefined;
   const isRunning = mainMachine?.status === 'running';
@@ -63,7 +66,14 @@ export default function DashboardPage() {
             ))}
       </Grid>
 
-      {/* Row 3: Real-time Logs + Active Alerts */}
+      {/* Row 3: Process Flow Card */}
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={12}>
+          <ProcessFlowCard steps={processSteps} loading={processLoading} />
+        </Grid>
+      </Grid>
+
+      {/* Row 4: Real-time Logs + Active Alerts */}
       <Grid container spacing={2} sx={{ mb: 2 }}>
         <Grid item xs={12} md={7}>
           <RealTimeLogs />
@@ -77,7 +87,7 @@ export default function DashboardPage() {
         </Grid>
       </Grid>
 
-      {/* Row 4: Variables Monitor + Shift Timeline */}
+      {/* Row 5: Variables Monitor + Shift Timeline */}
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <VariablesMonitor />
