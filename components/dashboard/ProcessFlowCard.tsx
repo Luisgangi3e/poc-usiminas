@@ -171,7 +171,7 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
                       flexShrink: 0,
                       ...(isActive &&
                         steps[index + 1]?.status === 'active' && {
-                          color: '#4CAF50',
+                          color: getProcessStepStatusColor('active'),
                           animation: 'arrowBounce 1.5s ease-in-out infinite',
                           '@keyframes arrowBounce': {
                             '0%, 100%': { transform: 'translateX(0)' },
