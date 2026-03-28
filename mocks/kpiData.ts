@@ -1,0 +1,48 @@
+import { KpiData } from '@/types/kpi';
+
+export const kpiData: KpiData[] = [
+  {
+    id: 'velocidade-laminacao',
+    label: 'Velocidade de Laminação',
+    value: 187.4,
+    unit: 'm/min',
+    status: 'normal',
+    trend: 'up',
+    min: 100,
+    max: 250,
+    target: 180,
+  },
+  {
+    id: 'espessura-chapa',
+    label: 'Espessura da Chapa',
+    value: 2.35,
+    unit: 'mm',
+    status: 'warning',
+    trend: 'stable',
+    min: 2.0,
+    max: 3.0,
+    target: 2.2,
+  },
+  {
+    id: 'temperatura-rolo',
+    label: 'Temperatura do Rolo',
+    value: 342,
+    unit: '°C',
+    status: 'normal',
+    trend: 'down',
+    min: 200,
+    max: 500,
+    target: 350,
+  },
+  {
+    id: 'tensao-bobina',
+    label: 'Tensão de Bobina',
+    value: 78.2,
+    unit: 'kN',
+    status: 'normal',
+    trend: 'stable',
+    min: 50,
+    max: 120,
+    target: 80,
+  },
+];
