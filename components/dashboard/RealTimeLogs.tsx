@@ -1,13 +1,16 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TerminalIcon from '@mui/icons-material/Terminal';
-import { LogEntry, logsData } from '@/mocks/logs';
+import { LogEntry, logsData, generateRandomLog } from '@/mocks/logs';
 import { formatTimestamp } from '@/utils/formatters';
+
+const MAX_LOGS = 50;
 
 function getLogColor(level: LogEntry['level']): string {
   switch (level) {
@@ -40,6 +43,26 @@ function getLogLevelLabel(level: LogEntry['level']): string {
 }
 
 export default function RealTimeLogs() {
+  const [logs, setLogs] = useState<LogEntry[]>(logsData);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLogs((prev) => {
+        const newLog = generateRandomLog();
+        const updated = [newLog, ...prev];
+        return updated.slice(0, MAX_LOGS);
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [logs]);
+
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
@@ -56,6 +79,7 @@ export default function RealTimeLogs() {
         }
       />
       <CardContent
+        ref={scrollRef}
         sx={{
           pt: 0,
           maxHeight: 340,
@@ -77,7 +101,7 @@ export default function RealTimeLogs() {
             fontFamily: '"JetBrains Mono", "Fira Code", "Consolas", monospace',
           }}
         >
-          {logsData.map((log) => {
+          {logs.map((log) => {
             const color = getLogColor(log.level);
             return (
               <Box
