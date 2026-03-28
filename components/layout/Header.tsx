@@ -5,7 +5,6 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
 import FactoryIcon from '@mui/icons-material/Factory';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { formatDate } from '@/utils/formatters';
