@@ -37,26 +37,33 @@ export default function Sidebar() {
         '& .MuiDrawer-paper': {
           width: SIDEBAR_WIDTH,
           boxSizing: 'border-box',
-          backgroundColor: 'background.paper',
-          borderRight: '1px solid rgba(255,255,255,0.08)',
+          backgroundColor: 'rgba(12, 18, 41, 0.6)',
+          backdropFilter: 'blur(16px)',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
+          background: 'linear-gradient(180deg, rgba(12, 18, 41, 0.9) 0%, rgba(6, 11, 24, 0.95) 100%)',
         },
       }}
     >
       <Toolbar />
       <Box sx={{ overflow: 'auto', flexGrow: 1 }}>
-        <List sx={{ pt: 2 }}>
+        <List sx={{ pt: 2, px: 1 }}>
           {navItems.map((item) => (
             <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
               <ListItemButton
                 selected={item.active}
                 sx={{
-                  mx: 1,
-                  borderRadius: 2,
+                  borderRadius: '12px',
+                  py: 1.25,
                   '&.Mui-selected': {
-                    backgroundColor: 'rgba(21, 101, 192, 0.2)',
+                    backgroundColor: 'rgba(41, 121, 255, 0.15)',
+                    borderLeft: '3px solid',
+                    borderLeftColor: 'primary.main',
                     '&:hover': {
-                      backgroundColor: 'rgba(21, 101, 192, 0.3)',
+                      backgroundColor: 'rgba(41, 121, 255, 0.22)',
                     },
+                  },
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
                   },
                 }}
               >
@@ -87,9 +94,9 @@ export default function Sidebar() {
           ))}
         </List>
       </Box>
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
       <Box sx={{ p: 2 }}>
-        <Typography variant="caption" color="text.disabled">
+        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.7rem' }}>
           v0.1.0-poc
         </Typography>
       </Box>

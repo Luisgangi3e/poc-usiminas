@@ -17,15 +17,15 @@ function getEventIcon(type: ShiftEvent['type']) {
   const iconProps = { sx: { fontSize: 18 } };
   switch (type) {
     case 'production':
-      return <PlayArrowIcon {...iconProps} sx={{ ...iconProps.sx, color: '#4CAF50' }} />;
+      return <PlayArrowIcon {...iconProps} sx={{ ...iconProps.sx, color: '#00E676' }} />;
     case 'maintenance':
-      return <BuildIcon {...iconProps} sx={{ ...iconProps.sx, color: '#FF9800' }} />;
+      return <BuildIcon {...iconProps} sx={{ ...iconProps.sx, color: '#FFAB00' }} />;
     case 'alert':
-      return <WarningAmberIcon {...iconProps} sx={{ ...iconProps.sx, color: '#F44336' }} />;
+      return <WarningAmberIcon {...iconProps} sx={{ ...iconProps.sx, color: '#FF1744' }} />;
     case 'quality':
-      return <VerifiedIcon {...iconProps} sx={{ ...iconProps.sx, color: '#42A5F5' }} />;
+      return <VerifiedIcon {...iconProps} sx={{ ...iconProps.sx, color: '#40C4FF' }} />;
     case 'shift':
-      return <SwapHorizIcon {...iconProps} sx={{ ...iconProps.sx, color: '#AB47BC' }} />;
+      return <SwapHorizIcon {...iconProps} sx={{ ...iconProps.sx, color: '#CE93D8' }} />;
     default:
       return <PlayArrowIcon {...iconProps} />;
   }
@@ -34,17 +34,17 @@ function getEventIcon(type: ShiftEvent['type']) {
 function getEventColor(type: ShiftEvent['type']): string {
   switch (type) {
     case 'production':
-      return '#4CAF50';
+      return '#00E676';
     case 'maintenance':
-      return '#FF9800';
+      return '#FFAB00';
     case 'alert':
-      return '#F44336';
+      return '#FF1744';
     case 'quality':
-      return '#42A5F5';
+      return '#40C4FF';
     case 'shift':
-      return '#AB47BC';
+      return '#CE93D8';
     default:
-      return '#90A4AE';
+      return '#8494A7';
   }
 }
 
@@ -52,7 +52,21 @@ export default function ShiftTimeline() {
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<TimelineIcon sx={{ color: 'secondary.main' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(255, 109, 0, 0.05))',
+            }}
+          >
+            <TimelineIcon sx={{ color: 'secondary.main', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Timeline do Turno
@@ -72,7 +86,7 @@ export default function ShiftTimeline() {
           '&::-webkit-scrollbar': { width: 6 },
           '&::-webkit-scrollbar-track': { background: 'transparent' },
           '&::-webkit-scrollbar-thumb': {
-            background: 'rgba(255,255,255,0.1)',
+            background: 'rgba(255,255,255,0.08)',
             borderRadius: 3,
           },
         }}
@@ -86,7 +100,8 @@ export default function ShiftTimeline() {
               top: 0,
               bottom: 0,
               width: 2,
-              backgroundColor: 'rgba(255,255,255,0.08)',
+              backgroundColor: 'rgba(255,255,255,0.06)',
+              borderRadius: 1,
             }}
           />
 
@@ -116,8 +131,9 @@ export default function ShiftTimeline() {
                     width: 22,
                     height: 22,
                     borderRadius: '50%',
-                    backgroundColor: `${color}1A`,
+                    backgroundColor: `${color}14`,
                     border: `2px solid ${color}`,
+                    boxShadow: `0 0 8px ${color}25`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -133,21 +149,21 @@ export default function ShiftTimeline() {
                   sx={{
                     ml: 1,
                     p: 1.5,
-                    borderRadius: 1,
-                    transition: 'background-color 0.2s',
+                    borderRadius: '10px',
+                    transition: 'background-color 0.2s ease',
                   }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                     <Typography
                       variant="caption"
                       sx={{
-                        fontFamily: 'monospace',
+                        fontFamily: '"JetBrains Mono", "Fira Code", monospace',
                         fontWeight: 700,
                         color,
-                        backgroundColor: `${color}1A`,
+                        backgroundColor: `${color}14`,
                         px: 0.75,
                         py: 0.25,
-                        borderRadius: 0.5,
+                        borderRadius: '6px',
                         fontSize: '0.7rem',
                       }}
                     >

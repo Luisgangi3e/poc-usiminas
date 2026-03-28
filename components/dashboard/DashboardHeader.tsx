@@ -30,17 +30,19 @@ export default function DashboardHeader() {
         gap: 2,
         flexWrap: 'wrap',
         p: 1.5,
-        px: 2,
-        mb: 2,
-        borderRadius: 2,
-        backgroundColor: 'rgba(15, 22, 39, 0.8)',
-        border: '1px solid rgba(255,255,255,0.08)',
+        px: 2.5,
+        mb: 2.5,
+        borderRadius: '14px',
+        backgroundColor: 'rgba(12, 18, 41, 0.7)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(255,255,255,0.06)',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
       }}
     >
       {/* Line Status */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <CheckCircleIcon sx={{ fontSize: 18, color: '#4CAF50' }} />
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+        <CheckCircleIcon sx={{ fontSize: 18, color: '#00E676' }} />
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
           Linha:
         </Typography>
         <Chip
@@ -48,7 +50,7 @@ export default function DashboardHeader() {
             <FiberManualRecordIcon
               sx={{
                 fontSize: '10px !important',
-                color: '#4CAF50 !important',
+                color: '#00E676 !important',
                 animation: 'headerPulse 2s infinite',
                 '@keyframes headerPulse': {
                   '0%, 100%': { opacity: 1 },
@@ -60,34 +62,34 @@ export default function DashboardHeader() {
           label="Em Produção"
           size="small"
           sx={{
-            backgroundColor: 'rgba(76, 175, 80, 0.12)',
-            color: '#4CAF50',
-            border: '1px solid rgba(76, 175, 80, 0.3)',
+            backgroundColor: 'rgba(0, 230, 118, 0.1)',
+            color: '#00E676',
+            border: '1px solid rgba(0, 230, 118, 0.2)',
             fontWeight: 600,
-            fontSize: '0.75rem',
+            fontSize: '0.72rem',
           }}
         />
       </Box>
 
-      <Box sx={{ width: '1px', height: 24, backgroundColor: 'rgba(255,255,255,0.12)' }} />
+      <Box sx={{ width: '1px', height: 24, backgroundColor: 'rgba(255,255,255,0.08)' }} />
 
       {/* Connection */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-        <WifiIcon sx={{ fontSize: 18, color: '#4CAF50' }} />
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+        <WifiIcon sx={{ fontSize: 18, color: '#00E676' }} />
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
           Conexão:
         </Typography>
-        <Typography variant="caption" sx={{ color: '#4CAF50', fontWeight: 600 }}>
+        <Typography variant="caption" sx={{ color: '#00E676', fontWeight: 700 }}>
           Online
         </Typography>
       </Box>
 
-      <Box sx={{ width: '1px', height: 24, backgroundColor: 'rgba(255,255,255,0.12)' }} />
+      <Box sx={{ width: '1px', height: 24, backgroundColor: 'rgba(255,255,255,0.08)' }} />
 
       {/* Shift */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
         <AccessTimeIcon sx={{ fontSize: 18, color: 'primary.light' }} />
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
           Turno:
         </Typography>
         <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 600 }}>
@@ -95,12 +97,12 @@ export default function DashboardHeader() {
         </Typography>
       </Box>
 
-      <Box sx={{ width: '1px', height: 24, backgroundColor: 'rgba(255,255,255,0.12)' }} />
+      <Box sx={{ width: '1px', height: 24, backgroundColor: 'rgba(255,255,255,0.08)' }} />
 
       {/* Operator */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
         <PersonIcon sx={{ fontSize: 18, color: 'primary.light' }} />
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
           Operador:
         </Typography>
         <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 600 }}>
@@ -113,10 +115,18 @@ export default function DashboardHeader() {
       {/* Last Update */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
         <UpdateIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '0.68rem' }}>
           Atualização:
         </Typography>
-        <Typography variant="caption" sx={{ color: 'text.primary', fontFamily: 'monospace', fontWeight: 600 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.primary',
+            fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+            fontWeight: 600,
+            fontSize: '0.72rem',
+          }}
+        >
           {currentTime}
         </Typography>
       </Box>

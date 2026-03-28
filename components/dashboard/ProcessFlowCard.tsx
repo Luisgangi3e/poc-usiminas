@@ -43,7 +43,7 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
         <CardContent>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
             {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={i} variant="rounded" width={140} height={160} />
+              <Skeleton key={i} variant="rounded" width={140} height={160} sx={{ borderRadius: '12px' }} />
             ))}
           </Box>
         </CardContent>
@@ -54,7 +54,21 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<AccountTreeIcon sx={{ color: 'primary.main' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(41, 121, 255, 0.15), rgba(41, 121, 255, 0.05))',
+            }}
+          >
+            <AccountTreeIcon sx={{ color: 'primary.main', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Fluxo do Processo
@@ -76,7 +90,7 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
             pb: 1,
             '&::-webkit-scrollbar': { height: 4 },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: 'rgba(255,255,255,0.1)',
+              backgroundColor: 'rgba(255,255,255,0.08)',
               borderRadius: 2,
             },
           }}
@@ -96,9 +110,9 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
                 <Box
                   sx={{
                     width: { xs: 120, sm: 140 },
-                    borderRadius: 2,
-                    border: `1.5px solid ${color}55`,
-                    backgroundColor: `${color}0D`,
+                    borderRadius: '14px',
+                    border: `1.5px solid ${color}40`,
+                    backgroundColor: `${color}08`,
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
@@ -106,16 +120,16 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
                     gap: 1,
                     position: 'relative',
                     overflow: 'hidden',
-                    transition: 'box-shadow 0.3s, transform 0.2s',
+                    transition: 'box-shadow 0.3s ease, transform 0.2s ease',
                     '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: `0 4px 20px ${color}33`,
+                      transform: 'translateY(-3px)',
+                      boxShadow: `0 8px 24px ${color}20`,
                     },
                     ...(isActive && {
                       animation: 'processStepPulse 2.5s ease-in-out infinite',
                       '@keyframes processStepPulse': {
                         '0%, 100%': { boxShadow: `0 0 0 0 ${color}00` },
-                        '50%': { boxShadow: `0 0 16px 2px ${color}33` },
+                        '50%': { boxShadow: `0 0 20px 4px ${color}25` },
                       },
                     }),
                   }}
@@ -139,9 +153,9 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
                       height: 22,
                       fontSize: '0.7rem',
                       fontWeight: 600,
-                      backgroundColor: `${color}1A`,
+                      backgroundColor: `${color}14`,
                       color,
-                      border: `1px solid ${color}44`,
+                      border: `1px solid ${color}30`,
                     }}
                   />
 
@@ -166,7 +180,7 @@ export default function ProcessFlowCard({ steps, loading = false }: ProcessFlowC
                 {index < steps.length - 1 && (
                   <ArrowForwardIcon
                     sx={{
-                      color: 'text.disabled',
+                      color: 'rgba(255,255,255,0.15)',
                       fontSize: 20,
                       flexShrink: 0,
                       ...(isActive &&

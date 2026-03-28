@@ -12,13 +12,13 @@ import { variablesData, ProcessVariable } from '@/mocks/variables';
 function getVariableColor(status: ProcessVariable['status']): string {
   switch (status) {
     case 'normal':
-      return '#4CAF50';
+      return '#00E676';
     case 'warning':
-      return '#FF9800';
+      return '#FFAB00';
     case 'critical':
-      return '#F44336';
+      return '#FF1744';
     default:
-      return '#90A4AE';
+      return '#8494A7';
   }
 }
 
@@ -26,7 +26,21 @@ export default function VariablesMonitor() {
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<MonitorHeartIcon sx={{ color: '#1E88E5' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(41, 121, 255, 0.15), rgba(41, 121, 255, 0.05))',
+            }}
+          >
+            <MonitorHeartIcon sx={{ color: '#448AFF', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Monitoramento de Variáveis
@@ -51,7 +65,15 @@ export default function VariablesMonitor() {
                     {variable.name}
                   </Typography>
                   <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.5 }}>
-                    <Typography variant="body2" sx={{ fontWeight: 700, color, fontFamily: 'monospace' }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: 700,
+                        color,
+                        fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+                        textShadow: `0 0 12px ${color}30`,
+                      }}
+                    >
                       {variable.value.toLocaleString('pt-BR')}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
@@ -60,7 +82,7 @@ export default function VariablesMonitor() {
                   </Box>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Typography variant="caption" color="text.disabled" sx={{ minWidth: 24, fontSize: '0.65rem' }}>
+                  <Typography variant="caption" sx={{ minWidth: 24, fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>
                     {variable.min}
                   </Typography>
                   <LinearProgress
@@ -70,14 +92,15 @@ export default function VariablesMonitor() {
                       flexGrow: 1,
                       height: 6,
                       borderRadius: 3,
-                      backgroundColor: 'rgba(255,255,255,0.06)',
+                      backgroundColor: 'rgba(255,255,255,0.04)',
                       '& .MuiLinearProgress-bar': {
                         borderRadius: 3,
                         backgroundColor: color,
+                        boxShadow: `0 0 8px ${color}40`,
                       },
                     }}
                   />
-                  <Typography variant="caption" color="text.disabled" sx={{ minWidth: 24, fontSize: '0.65rem', textAlign: 'right' }}>
+                  <Typography variant="caption" sx={{ minWidth: 24, fontSize: '0.65rem', textAlign: 'right', color: 'rgba(255,255,255,0.25)' }}>
                     {variable.max}
                   </Typography>
                 </Box>

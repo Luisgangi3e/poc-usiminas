@@ -41,6 +41,7 @@ export default function StatusBadge({ status, type = 'machine', label }: StatusB
             borderRadius: '50%',
             backgroundColor: color,
             display: 'inline-block',
+            boxShadow: `0 0 6px ${color}50`,
             animation: 'pulseDot 1.5s ease-in-out infinite',
             '@keyframes pulseDot': {
               '0%, 100%': { opacity: 1, transform: 'scale(1)' },
@@ -53,9 +54,9 @@ export default function StatusBadge({ status, type = 'machine', label }: StatusB
         label={displayLabel}
         size="small"
         sx={{
-          backgroundColor: `${color}22`,
+          backgroundColor: `${color}18`,
           color: color,
-          border: `1px solid ${color}44`,
+          border: `1px solid ${color}30`,
           fontWeight: 600,
           fontSize: '0.75rem',
         }}
