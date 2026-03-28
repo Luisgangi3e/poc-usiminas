@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import { Machine } from '@/types/machine';
 import StatusBadge from './StatusBadge';
@@ -25,7 +26,21 @@ export default function MachineStatusTable({ machines, loading = false }: Machin
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
-        avatar={<PrecisionManufacturingIcon sx={{ color: 'primary.main' }} />}
+        avatar={
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, rgba(41, 121, 255, 0.15), rgba(41, 121, 255, 0.05))',
+            }}
+          >
+            <PrecisionManufacturingIcon sx={{ color: 'primary.main', fontSize: 20 }} />
+          </Box>
+        }
         title={
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Status das Máquinas
