@@ -111,11 +111,13 @@ if not errorlevel 1 (
     REM Enviar arquivos essenciais individualmente via scp
     for %%F in (
         Dockerfile
+        .dockerignore
         docker-compose.yml
         package.json
         package-lock.json
         next.config.js
         tsconfig.json
+        .eslintrc.json
         deploy.sh
     ) do (
         if exist "%LOCAL_PROJECT_DIR%%%F" (
