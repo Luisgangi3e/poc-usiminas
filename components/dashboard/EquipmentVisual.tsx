@@ -74,7 +74,7 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
             sx={{
               position: 'absolute',
               left: '8%',
-              bottom: 30,
+              bottom: 44,
               width: 60,
               height: 60,
               borderRadius: '50%',
@@ -115,8 +115,8 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
             sx={{
               position: 'absolute',
               left: 'calc(8% + 60px)',
-              bottom: 58,
-              width: 'calc(84% - 120px)',
+              bottom: 74,
+              width: 'calc(84% - 110px)',
               height: 3,
               backgroundColor: '#607D8B',
               borderRadius: 1,
@@ -204,7 +204,7 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
             sx={{
               position: 'absolute',
               right: '8%',
-              bottom: 30,
+              bottom: 49,
               width: 50,
               height: 50,
               borderRadius: '50%',
