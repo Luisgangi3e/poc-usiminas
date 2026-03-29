@@ -115,7 +115,7 @@ export default function EquipmentVisual({ isRunning = true }: EquipmentVisualPro
             sx={{
               position: 'absolute',
               left: 'calc(8% + 60px)',
-              bottom: 58,
+              bottom: 74,
               width: 'calc(84% - 120px)',
               height: 3,
               backgroundColor: '#607D8B',

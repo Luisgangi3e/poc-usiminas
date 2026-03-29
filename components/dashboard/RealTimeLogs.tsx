@@ -64,7 +64,7 @@ export default function RealTimeLogs() {
   }, [logs]);
 
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardHeader
         avatar={
           <Box
@@ -93,26 +93,31 @@ export default function RealTimeLogs() {
         }
       />
       <CardContent
-        ref={scrollRef}
         sx={{
           pt: 0,
-          maxHeight: 340,
-          overflow: 'auto',
-          '&::-webkit-scrollbar': { width: 6 },
-          '&::-webkit-scrollbar-track': { background: 'transparent' },
-          '&::-webkit-scrollbar-thumb': {
-            background: 'rgba(255,255,255,0.08)',
-            borderRadius: 3,
-          },
+          flex: 1,
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          pb: '16px !important',
         }}
       >
         <Box
+          ref={scrollRef}
           sx={{
+            flex: 1,
+            overflow: 'auto',
             backgroundColor: 'rgba(6, 11, 24, 0.8)',
             borderRadius: '10px',
             border: '1px solid rgba(255,255,255,0.05)',
             p: 1.5,
             fontFamily: '"JetBrains Mono", "Fira Code", "Consolas", monospace',
+            '&::-webkit-scrollbar': { width: 6 },
+            '&::-webkit-scrollbar-track': { background: 'transparent' },
+            '&::-webkit-scrollbar-thumb': {
+              background: 'rgba(255,255,255,0.08)',
+              borderRadius: 3,
+            },
           }}
         >
           {logs.map((log) => {
