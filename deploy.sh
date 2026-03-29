@@ -95,6 +95,41 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
+# ETAPA 4.5 — Verificar se a porta está livre
+# ──────────────────────────────────────────────────────────────────────────────
+step "ETAPA 4.5 — Verificando disponibilidade da porta ${INTERNAL_PORT}"
+
+PORT_PID=$(ss -tlnp 2>/dev/null | grep ":${INTERNAL_PORT} " | head -1 || true)
+if [ -n "${PORT_PID}" ]; then
+  warn "Porta ${INTERNAL_PORT} já está em uso:"
+  echo "  ${PORT_PID}"
+  # Extrair PID do processo que está usando a porta
+  EXISTING_PID=$(echo "${PORT_PID}" | grep -oP 'pid=\K[0-9]+' | head -1 || true)
+  if [ -n "${EXISTING_PID}" ]; then
+    EXISTING_CMD=$(ps -p "${EXISTING_PID}" -o comm= 2>/dev/null || echo "desconhecido")
+    warn "Processo: PID=${EXISTING_PID} (${EXISTING_CMD})"
+    # Verificar se é o nosso próprio container (que já foi parado na etapa anterior)
+    DOCKER_PROXY_CHECK=$(echo "${EXISTING_CMD}" | grep -i "docker\|containerd" || true)
+    if [ -n "${DOCKER_PROXY_CHECK}" ]; then
+      info "Parece ser um proxy Docker residual. Aguardando liberação (5s)..."
+      sleep 5
+      PORT_PID_RECHECK=$(ss -tlnp 2>/dev/null | grep ":${INTERNAL_PORT} " | head -1 || true)
+      if [ -n "${PORT_PID_RECHECK}" ]; then
+        die "Porta ${INTERNAL_PORT} ainda ocupada após aguardar. Libere manualmente: kill ${EXISTING_PID}"
+      else
+        success "Porta ${INTERNAL_PORT} liberada automaticamente."
+      fi
+    else
+      die "Porta ${INTERNAL_PORT} está ocupada por outro processo (PID=${EXISTING_PID}, cmd=${EXISTING_CMD}). Libere a porta antes de continuar."
+    fi
+  else
+    die "Porta ${INTERNAL_PORT} está ocupada por um processo desconhecido. Execute: ss -tlnp | grep :${INTERNAL_PORT}"
+  fi
+else
+  success "Porta ${INTERNAL_PORT} está livre."
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
 # ETAPA 5 — Subir container
 # ──────────────────────────────────────────────────────────────────────────────
 step "ETAPA 5 — Subindo container ${CONTAINER_NAME}"

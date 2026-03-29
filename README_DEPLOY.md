@@ -68,6 +68,32 @@ scp -r app components hooks mocks theme types utils public \
 
 ## 3. Executar o Deploy
 
+### Opção A — Deploy Automático (GitHub Actions)
+
+O deploy é executado automaticamente via GitHub Actions quando há push na branch `main`, ou pode ser disparado manualmente pela aba **Actions** do GitHub.
+
+**Secrets necessários** (configurar em Settings → Secrets and variables → Actions):
+
+| Secret | Descrição | Exemplo |
+|--------|-----------|---------|
+| `SSH_HOST` | IP do servidor | `130.250.189.175` |
+| `SSH_USER` | Usuário SSH | `root` |
+| `SSH_PRIVATE_KEY` | Chave privada SSH completa | Conteúdo de `~/.ssh/id_ed25519` |
+
+Para configurar a chave SSH:
+```bash
+# Na máquina local, gerar chave (se ainda não tiver):
+ssh-keygen -t ed25519 -C "deploy@poc-usiminas"
+
+# Copiar a chave pública para o servidor:
+ssh-copy-id -i ~/.ssh/id_ed25519.pub root@130.250.189.175
+
+# Copiar o conteúdo da chave privada para o secret SSH_PRIVATE_KEY:
+cat ~/.ssh/id_ed25519
+```
+
+### Opção B — Deploy Manual via SSH
+
 ```bash
 # Conectar ao servidor
 ssh root@130.250.189.175
@@ -83,6 +109,7 @@ chmod +x deploy.sh
 O `deploy.sh` realiza automaticamente:
 - Build da imagem Docker
 - Parada e remoção do container antigo
+- **Verificação de disponibilidade da porta 3001** (detecta e reporta processos conflitantes)
 - Subida do novo container
 - Detecção e configuração do Nginx
 - Backup dos arquivos alterados
@@ -261,6 +288,9 @@ Se `ssh root@130.250.189.175` recusar a senha:
 
 ```
 poc-usiminas/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml                 # CI/CD — Deploy automático via GitHub Actions
 ├── Dockerfile                         # Build da imagem Docker da aplicação
 ├── .dockerignore                      # Arquivos excluídos do build Docker
 ├── docker-compose.yml                 # Orquestração do container
