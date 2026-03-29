@@ -1,4 +1,4 @@
-# README_DEPLOY.md — Guia de Deploy: encruamento.ewertondev.com.br
+# README_DEPLOY.md — Guia de Deploy: poc-usiminas.ewertondev.com.br
 
 ## Visão Geral
 
@@ -8,9 +8,23 @@ Este guia descreve como implantar a aplicação **poc-usiminas** (Next.js) no se
 |------|-------|
 | Servidor | `130.250.189.175` |
 | Usuário SSH | `root` |
-| Domínio | `encruamento.ewertondev.com.br` |
-| Container | `encruamento-app` |
-| Porta interna | `127.0.0.1:3000` |
+| Domínio | `poc-usiminas.ewertondev.com.br` |
+| Container | `poc-usiminas-app` |
+| Porta interna | `127.0.0.1:3001` |
+
+> **Nota:** A porta 3001 é usada para evitar conflito com a aplicação existente (tela elevador) que já utiliza a porta 3000 no mesmo servidor.
+
+---
+
+## 0. Pré-requisito: Criar Registro DNS
+
+Antes do deploy, crie um registro DNS do tipo **A** apontando para o servidor:
+
+```
+poc-usiminas.ewertondev.com.br  →  130.250.189.175
+```
+
+Configure isso no painel do seu provedor de DNS (Cloudflare, Route53, etc).
 
 ---
 
@@ -41,13 +55,13 @@ deploy.bat
 ```bash
 # Enviar todos os arquivos (exceto node_modules e .next)
 rsync -avz --exclude=node_modules --exclude=.next --exclude=.git \
-  ./ root@130.250.189.175:/opt/encruamento/
+  ./ root@130.250.189.175:/opt/poc-usiminas/
 
 # OU, se rsync não estiver disponível:
 scp -r app components hooks mocks theme types utils public \
-       Dockerfile docker-compose.yml package.json package-lock.json \
-       next.config.js tsconfig.json deploy.sh \
-       root@130.250.189.175:/opt/encruamento/
+       Dockerfile .dockerignore docker-compose.yml package.json package-lock.json \
+       next.config.js tsconfig.json .eslintrc.json deploy.sh \
+       root@130.250.189.175:/opt/poc-usiminas/
 ```
 
 ---
@@ -59,7 +73,7 @@ scp -r app components hooks mocks theme types utils public \
 ssh root@130.250.189.175
 
 # Navegar até o diretório da aplicação
-cd /opt/encruamento
+cd /opt/poc-usiminas
 
 # Dar permissão de execução e rodar o script
 chmod +x deploy.sh
@@ -84,13 +98,13 @@ O `deploy.sh` realiza automaticamente:
 docker ps
 
 # Ver detalhes do container da aplicação
-docker ps --filter name=encruamento-app
+docker ps --filter name=poc-usiminas-app
 
 # Testar resposta local da aplicação
-curl -I http://127.0.0.1:3000
+curl -I http://127.0.0.1:3001
 
 # Inspecionar o container
-docker inspect encruamento-app
+docker inspect poc-usiminas-app
 ```
 
 ---
@@ -105,9 +119,9 @@ nginx -t
 systemctl status nginx
 
 # Verificar arquivo de configuração gerado
-cat /etc/nginx/sites-available/encruamento.ewertondev.com.br
+cat /etc/nginx/sites-available/poc-usiminas.ewertondev.com.br
 # ou
-cat /etc/nginx/conf.d/encruamento.ewertondev.com.br.conf
+cat /etc/nginx/conf.d/poc-usiminas.ewertondev.com.br.conf
 
 # Listar sites habilitados
 ls -la /etc/nginx/sites-enabled/
@@ -119,13 +133,13 @@ ls -la /etc/nginx/sites-enabled/
 
 ```bash
 # Testar redirecionamento HTTP → HTTPS
-curl -I http://encruamento.ewertondev.com.br
+curl -I http://poc-usiminas.ewertondev.com.br
 
 # Testar resposta HTTPS
-curl -I https://encruamento.ewertondev.com.br
+curl -I https://poc-usiminas.ewertondev.com.br
 
 # Verificar certificado
-openssl s_client -connect encruamento.ewertondev.com.br:443 -servername encruamento.ewertondev.com.br < /dev/null 2>/dev/null | openssl x509 -noout -dates
+openssl s_client -connect poc-usiminas.ewertondev.com.br:443 -servername poc-usiminas.ewertondev.com.br < /dev/null 2>/dev/null | openssl x509 -noout -dates
 
 # Verificar onde está o certificado Let's Encrypt
 ls -la /etc/letsencrypt/live/
@@ -140,7 +154,7 @@ Se o certificado não for encontrado automaticamente, veja o passo abaixo sobre 
 systemctl stop nginx
 
 # Emitir certificado
-certbot certonly --standalone -d encruamento.ewertondev.com.br
+certbot certonly --standalone -d poc-usiminas.ewertondev.com.br
 
 # Reiniciar Nginx
 systemctl start nginx
@@ -152,15 +166,15 @@ systemctl start nginx
 
 ```bash
 # Logs do container Docker
-docker logs encruamento-app
-docker logs --tail 100 encruamento-app
-docker logs -f encruamento-app   # modo follow
+docker logs poc-usiminas-app
+docker logs --tail 100 poc-usiminas-app
+docker logs -f poc-usiminas-app   # modo follow
 
 # Logs de acesso do Nginx
-tail -f /var/log/nginx/encruamento.ewertondev.com.br.access.log
+tail -f /var/log/nginx/poc-usiminas.ewertondev.com.br.access.log
 
 # Logs de erro do Nginx
-tail -f /var/log/nginx/encruamento.ewertondev.com.br.error.log
+tail -f /var/log/nginx/poc-usiminas.ewertondev.com.br.error.log
 
 # Logs gerais do Nginx
 tail -f /var/log/nginx/error.log
@@ -172,24 +186,24 @@ tail -f /var/log/nginx/error.log
 
 ```bash
 # Listar imagens disponíveis
-docker images | grep encruamento
+docker images | grep poc-usiminas
 
 # Parar container atual
-docker stop encruamento-app && docker rm encruamento-app
+docker stop poc-usiminas-app && docker rm poc-usiminas-app
 
 # Subir container com imagem anterior (substitua <TAG> pela tag anterior)
 docker run -d \
-  --name encruamento-app \
+  --name poc-usiminas-app \
   --restart unless-stopped \
   -e NODE_ENV=production \
-  -e PORT=3000 \
-  -p 127.0.0.1:3000:3000 \
-  encruamento-app:<TAG>
+  -e PORT=3001 \
+  -p 127.0.0.1:3001:3001 \
+  poc-usiminas-app:<TAG>
 
 # Restaurar configuração anterior do Nginx (substitua <TIMESTAMP> pelo backup)
 ls /etc/nginx/sites-available/*.bak.*
-cp /etc/nginx/sites-available/encruamento.ewertondev.com.br.bak.<TIMESTAMP> \
-   /etc/nginx/sites-available/encruamento.ewertondev.com.br
+cp /etc/nginx/sites-available/poc-usiminas.ewertondev.com.br.bak.<TIMESTAMP> \
+   /etc/nginx/sites-available/poc-usiminas.ewertondev.com.br
 nginx -t && systemctl reload nginx
 ```
 
@@ -216,7 +230,7 @@ Se `ssh root@130.250.189.175` recusar a senha:
 3. **Configure autenticação por chave SSH (recomendado):**
    ```bash
    # Na máquina local:
-   ssh-keygen -t ed25519 -C "deploy@encruamento"
+   ssh-keygen -t ed25519 -C "deploy@poc-usiminas"
    ssh-copy-id -i ~/.ssh/id_ed25519.pub root@130.250.189.175
    # Após isso, o acesso será por chave, sem necessidade de senha
    ```
@@ -234,10 +248,10 @@ Se `ssh root@130.250.189.175` recusar a senha:
 | `Connection refused` na porta 22 | SSH bloqueado por firewall | Abrir porta 22 no firewall do servidor/provedor |
 | `Permission denied (publickey,password)` | Senha incorreta ou auth por senha desabilitada | Verificar senha ou habilitar `PasswordAuthentication yes` no sshd |
 | Build Docker falha | Dependências não encontradas ou Node incompatível | Verificar `Dockerfile` e versão do Node |
-| Container sobe mas não responde | Aplicação com erro na inicialização | `docker logs encruamento-app` para detalhes |
+| Container sobe mas não responde | Aplicação com erro na inicialização | `docker logs poc-usiminas-app` para detalhes |
 | Nginx `nginx -t` falha | Caminho de certificado errado na config | Corrigir `ssl_certificate` e `ssl_certificate_key` no arquivo de config |
-| DNS não resolve | Registro A não configurado | Criar registro A no DNS: `encruamento.ewertondev.com.br → 130.250.189.175` |
-| Porta 3000 já em uso | Outro processo usando a porta | `ss -tlnp \| grep 3000` para identificar e liberar |
+| DNS não resolve | Registro A não configurado | Criar registro A no DNS: `poc-usiminas.ewertondev.com.br → 130.250.189.175` |
+| Porta 3001 já em uso | Outro processo usando a porta | `ss -tlnp \| grep 3001` para identificar e liberar |
 | HTTPS não funciona | Certificado não encontrado ou expirado | Verificar `/etc/letsencrypt/live/` ou emitir novo certificado |
 | Site acessível localmente mas não externamente | Firewall bloqueando portas 80/443 | Abrir portas 80 e 443 no firewall: `ufw allow 80,443/tcp` |
 
@@ -248,10 +262,11 @@ Se `ssh root@130.250.189.175` recusar a senha:
 ```
 poc-usiminas/
 ├── Dockerfile                         # Build da imagem Docker da aplicação
+├── .dockerignore                      # Arquivos excluídos do build Docker
 ├── docker-compose.yml                 # Orquestração do container
 ├── deploy.sh                          # Script de deploy (executa no servidor)
 ├── deploy.bat                         # Launcher para Windows (envia e executa deploy)
 ├── nginx/
-│   └── encruamento.ewertondev.com.br.conf  # Template de configuração Nginx
+│   └── poc-usiminas.ewertondev.com.br.conf  # Template de configuração Nginx
 └── README_DEPLOY.md                   # Este guia
 ```

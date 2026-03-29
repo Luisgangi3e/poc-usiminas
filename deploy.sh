@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-#  deploy.sh  —  Deploy remoto da aplicação encruamento-app
+#  deploy.sh  —  Deploy remoto da aplicação poc-usiminas-app
 #
 #  Uso (executado DENTRO do servidor ou via SSH pipe):
 #    chmod +x deploy.sh && ./deploy.sh
@@ -15,17 +15,17 @@ set -euo pipefail
 # ──────────────────────────────────────────────────────────────────────────────
 # Variáveis de configuração — ajuste aqui se necessário
 # ──────────────────────────────────────────────────────────────────────────────
-APP_NAME="encruamento-app"
-APP_DIR="/opt/encruamento"
-CONTAINER_NAME="encruamento-app"
-INTERNAL_PORT="3000"
-DOMAIN="encruamento.ewertondev.com.br"
+APP_NAME="poc-usiminas-app"
+APP_DIR="/opt/poc-usiminas"
+CONTAINER_NAME="poc-usiminas-app"
+INTERNAL_PORT="3001"
+DOMAIN="poc-usiminas.ewertondev.com.br"
 SERVER_HOST="130.250.189.175"
 SERVER_USER="root"
 NGINX_SITE_PATH="/etc/nginx/sites-available/${DOMAIN}"
 NGINX_ENABLED_PATH="/etc/nginx/sites-enabled/${DOMAIN}"
 NGINX_CONFD_PATH="/etc/nginx/conf.d/${DOMAIN}.conf"
-IMAGE_TAG="encruamento-app:latest"
+IMAGE_TAG="poc-usiminas-app:latest"
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Helpers

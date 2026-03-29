@@ -22,8 +22,8 @@ REM  Variáveis de configuração
 REM ──────────────────────────────────────────────────────────────────────────────
 set SERVER_HOST=130.250.189.175
 set SERVER_USER=root
-set DOMAIN=encruamento.ewertondev.com.br
-set APP_DIR=/opt/encruamento
+set DOMAIN=poc-usiminas.ewertondev.com.br
+set APP_DIR=/opt/poc-usiminas
 set REMOTE_SCRIPT=%APP_DIR%/deploy.sh
 
 REM Arquivos e pastas a enviar ao servidor
@@ -164,7 +164,7 @@ if errorlevel 1 (
     echo.
     echo  Possiveis causas:
     echo    - Erro no build Docker
-    echo    - Porta 3000 ocupada por outro processo
+    echo    - Porta 3001 ocupada por outro processo
     echo    - Certificado SSL nao encontrado (HTTPS desabilitado temporariamente)
     echo    - Permissao negada para alterar configuracao do Nginx
     echo.
@@ -181,7 +181,7 @@ echo.
 echo  Verificando container e Nginx remotamente:
 ssh -o StrictHostKeyChecking=no -o ConnectTimeout=15 ^
     %SERVER_USER%@%SERVER_HOST% ^
-    "docker ps --filter name=encruamento-app --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' && echo '---' && systemctl is-active nginx 2>/dev/null || service nginx status 2>/dev/null | head -3"
+    "docker ps --filter name=poc-usiminas-app --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' && echo '---' && systemctl is-active nginx 2>/dev/null || service nginx status 2>/dev/null | head -3"
 
 echo.
 echo ============================================================
@@ -189,14 +189,14 @@ echo   DEPLOY CONCLUIDO
 echo ============================================================
 echo   Dominio  : https://%DOMAIN%
 echo   Servidor : %SERVER_HOST%
-echo   Container: encruamento-app
+echo   Container: poc-usiminas-app
 echo ============================================================
 echo.
 echo  Se o site nao estiver acessivel, verifique:
 echo    1. DNS do dominio aponta para %SERVER_HOST%
 echo    2. Portas 80 e 443 abertas no firewall
 echo    3. Certificado HTTPS configurado no servidor
-echo    4. Logs: ssh %SERVER_USER%@%SERVER_HOST% "docker logs encruamento-app"
+echo    4. Logs: ssh %SERVER_USER%@%SERVER_HOST% "docker logs poc-usiminas-app"
 echo.
 pause
 exit /b 0
