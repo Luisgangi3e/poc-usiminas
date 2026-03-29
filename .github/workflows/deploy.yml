@@ -1,0 +1,60 @@
+# =============================================================================
+#  GitHub Actions — Deploy automático para o servidor
+#
+#  Trigger: push na branch main OU dispatch manual
+#
+#  Secrets necessários no repositório:
+#    SSH_HOST          — IP do servidor (ex: 130.250.189.175)
+#    SSH_USER          — Usuário SSH (ex: root)
+#    SSH_PRIVATE_KEY   — Chave privada SSH (conteúdo completo do arquivo id_ed25519)
+# =============================================================================
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar chave SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Criar diretório remoto
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "mkdir -p /opt/poc-usiminas"
+
+      - name: Enviar arquivos via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude=node_modules \
+            --exclude=.next \
+            --exclude=.git \
+            --exclude='*.log' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/poc-usiminas/
+
+      - name: Executar deploy remoto
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "chmod +x /opt/poc-usiminas/deploy.sh && bash /opt/poc-usiminas/deploy.sh"
+
+      - name: Limpar chave SSH
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

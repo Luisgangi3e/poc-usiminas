@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+*.log
+*.md
+deploy.bat
+deploy.sh
+nginx
+.eslintrc.json
